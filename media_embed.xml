@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="content" method="upgrade">
+	<name>plg_content_media_embed</name>
+	<version>1.0</version>
+	<copyright>(C) All rights reserved. 2012 nuclear-head</copyright>
+	<creationDate>October 2012</creationDate>
+	<author>nuclear-head</author>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>nuclear@jvitals.com</authorEmail>
+	<authorUrl>http://www.jvitals.com</authorUrl>
+	<description>PLG_CONTENT_MEDIA_EMBED_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="media_embed">media_embed.php</filename>
+		<filename>audio-player.js</filename>
+		<filename>index.html</filename>
+		<filename>player.swf</filename>
+	</files>
+	<languages folder="language/en-GB">
+		<language tag="en-GB">en-GB.plg_content_media_embed.ini</language>
+		<language tag="en-GB">en-GB.plg_content_media_embed.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="width" type="text" default="290" description="PLG_CONTENT_MEDIA_EMBED_WIDTH" label="PLG_CONTENT_MEDIA_EMBED_WIDTH" />
+				<field name="initialvolume" type="text" default="60" description="PLG_CONTENT_MEDIA_EMBED_INITIALVOLUME" label="PLG_CONTENT_MEDIA_EMBED_INITIALVOLUME" />
+				<field name="buffer" type="text" default="5" description="PLG_CONTENT_MEDIA_EMBED_BUFFER" label="PLG_CONTENT_MEDIA_EMBED_BUFFER" />
+				<field name="animation" type="radio" default="1" description="PLG_CONTENT_MEDIA_EMBED_ANIMATION" label="PLG_CONTENT_MEDIA_EMBED_ANIMATION">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="remaining" type="radio" default="1" description="PLG_CONTENT_MEDIA_EMBED_REMAINING" label="PLG_CONTENT_MEDIA_EMBED_REMAINING">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="noinfo" type="radio" default="0" description="PLG_CONTENT_MEDIA_EMBED_NOINFO" label="PLG_CONTENT_MEDIA_EMBED_NOINFO">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="checkpolicy" type="radio" default="0" description="PLG_CONTENT_MEDIA_EMBED_CHECKPOLICY" label="PLG_CONTENT_MEDIA_EMBED_CHECKPOLICY">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="rtl" type="radio" default="0" description="PLG_CONTENT_MEDIA_EMBED_RTL" label="PLG_CONTENT_MEDIA_EMBED_RTL">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="youtube_width" type="text" default="560" description="PLG_CONTENT_MEDIA_EMBED_YOUTUBE_WIDTH" label="PLG_CONTENT_MEDIA_EMBED_YOUTUBE_WIDTH" />
+				<field name="youtube_height" type="text" default="315" description="PLG_CONTENT_MEDIA_EMBED_YOUTUBE_HEIGHT" label="PLG_CONTENT_MEDIA_EMBED_YOUTUBE_HEIGHT" />
+				<field name="vimeo_width" type="text" default="500" description="PLG_CONTENT_MEDIA_EMBED_VIMEO_WIDTH" label="PLG_CONTENT_MEDIA_EMBED_VIMEO_WIDTH" />
+				<field name="vimeo_height" type="text" default="281" description="PLG_CONTENT_MEDIA_EMBED_VIMEO_HEIGHT" label="PLG_CONTENT_MEDIA_EMBED_VIMEO_HEIGHT" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
