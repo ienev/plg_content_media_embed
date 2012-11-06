@@ -3,10 +3,9 @@
 * Detailed copyright and licensing information can be found
 * in the gpl-3.0.txt file which should be included in the distribution.
 * 
-* @version		1.0 2012-10-10 nuclear-head
-* @copyright	2012 nuclear-head
+* @version		1.0 2012-10-10 Iskar Enev
+* @copyright	2012 Iskar Enev
 * @license  	GPLv3 Open Source
-* @link       	http://jvitals.com
 * @since      	File available since initial release
 */
 
@@ -16,10 +15,10 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.plugin.plugin');
 
 class plgContentMedia_embed extends JPlugin {
-	var $playerGlobalOptions;
-	var $web_dir;
-	var $declarations;
-	var $version;
+	public  $playerGlobalOptions;
+	public  $web_dir;
+	public  $declarations;
+	public  $version;
 
 	public function __construct(&$subject, $config) {
 		parent::__construct($subject, $config);
@@ -59,7 +58,7 @@ class plgContentMedia_embed extends JPlugin {
 		$this->declarations = '';
 	}
 
-	function onContentPrepare($context, &$row, &$params, $page = 0) {
+	public function onContentPrepare($context, &$row, &$params, $page = 0) {
 	
 		if (strpos($row->text, '[audio') !== false) {
 		
@@ -70,18 +69,27 @@ class plgContentMedia_embed extends JPlugin {
 			if ($this->declarations) $document->addScriptDeclaration($this->declarations);
 			$this->declarations = '';
 			
-		} elseif (strpos($row->text, '[youtube') !== false) {
+		} 
+		
+		if (strpos($row->text, '[youtube') !== false) {
 		
 			$row->text = preg_replace_callback("/\[youtube(([^]]+))\]/i", array(&$this, 'replaceYoutube'), $row->text );
 			
-		} elseif (strpos($row->text, '[vimeo') !== false) {
+		} 
+		
+		if (strpos($row->text, '[vimeo') !== false) {
 		
 			$row->text = preg_replace_callback("/\[vimeo(([^]]+))\]/i", array(&$this, 'replaceVimeo'), $row->text );
 		}
 		
+		if (strpos($row->text, '[gmaps') !== false) {
+		
+			$row->text = preg_replace_callback("/\[gmaps(([^]]+))\]/i", array(&$this, 'replaceGmaps'), $row->text );
+		}
+		
 	}
 
-	function replacePlayer($matches) {
+	public function replacePlayer($matches) {
 		$playerElementID = 'audioplayer_' . md5('audio-' . rand() . '-' . time());
 		$files = array();
 		$data = array();
@@ -112,7 +120,7 @@ class plgContentMedia_embed extends JPlugin {
 		return $playerCode;
 	}
 	
-	function replaceYoutube($matches) {
+	public function replaceYoutube($matches) {
 		$id = '';
 		$ret = '';
 		$url = trim(trim($matches[1], chr(0xC2).chr(0xA0)));
@@ -135,7 +143,7 @@ class plgContentMedia_embed extends JPlugin {
 		return $ret;
 	}
 	
-	function replaceVimeo($matches) {
+	public function replaceVimeo($matches) {
 		$id = '';
 		$ret = '';
 		
@@ -149,13 +157,27 @@ class plgContentMedia_embed extends JPlugin {
 		if ($id) {
 			$width = $this->params->def('vimeo_width', 500);
 			$height = $this->params->def('vimeo_height', 281);
-			$ret = '<iframe src="http://player.vimeo.com/video/' . $id . '?title=1&amp;byline=1&amp;portrait=1" width="' . $width . '" height="' . $height . 'height" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+			$ret = '<iframe src="http://player.vimeo.com/video/' . $id . '?title=1&amp;byline=1&amp;portrait=1" width="' . $width . '" height="' . $height . '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 		}
 		
 		return $ret;
 	}
+	
+	public function replaceGmaps($matches) {
+		$ret = '';
+		
+		$url = $matches[1];
+		$url = trim(trim($url, chr(0xC2).chr(0xA0)));
+		if (!$url) return $ret;
+		
+		$width = $this->params->def('gmaps_width', 425);
+		$height = $this->params->def('gmaps_height', 350);
+		$ret = '<iframe src="' . $url . '&output=embed" width="' . $width . '" height="' . $height . '"  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" ></iframe>';
+		
+		return $ret;
+	}
 
-	function php2js($object) {
+	public function php2js($object) {
 		$js_options = '{';
 		$separator = '';
 		$real_separator = ',';

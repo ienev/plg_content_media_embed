@@ -2,12 +2,12 @@
 <extension version="3.0" type="plugin" group="content" method="upgrade">
 	<name>plg_content_media_embed</name>
 	<version>1.0</version>
-	<copyright>(C) All rights reserved. 2012 nuclear-head</copyright>
+	<copyright>(C) All rights reserved. 2012 Iskar Enev</copyright>
 	<creationDate>October 2012</creationDate>
-	<author>nuclear-head</author>
+	<author>Iskar Enev</author>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorEmail>nuclear@jvitals.com</authorEmail>
-	<authorUrl>http://www.jvitals.com</authorUrl>
+	<authorEmail></authorEmail>
+	<authorUrl></authorUrl>
 	<description>PLG_CONTENT_MEDIA_EMBED_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="media_embed">media_embed.php</filename>
@@ -49,6 +49,8 @@
 				<field name="youtube_height" type="text" default="315" description="PLG_CONTENT_MEDIA_EMBED_YOUTUBE_HEIGHT" label="PLG_CONTENT_MEDIA_EMBED_YOUTUBE_HEIGHT" />
 				<field name="vimeo_width" type="text" default="500" description="PLG_CONTENT_MEDIA_EMBED_VIMEO_WIDTH" label="PLG_CONTENT_MEDIA_EMBED_VIMEO_WIDTH" />
 				<field name="vimeo_height" type="text" default="281" description="PLG_CONTENT_MEDIA_EMBED_VIMEO_HEIGHT" label="PLG_CONTENT_MEDIA_EMBED_VIMEO_HEIGHT" />
+				<field name="gmaps_width" type="text" default="425" description="PLG_CONTENT_MEDIA_EMBED_GMAPS_WIDTH" label="PLG_CONTENT_MEDIA_EMBED_GMAPS_WIDTH" />
+				<field name="gmaps_height" type="text" default="350" description="PLG_CONTENT_MEDIA_EMBED_GMAPS_HEIGHT" label="PLG_CONTENT_MEDIA_EMBED_GMAPS_HEIGHT" />
 			</fieldset>
 		</fields>
 	</config>
