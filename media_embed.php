@@ -123,7 +123,10 @@ class plgContentMedia_embed extends JPlugin {
 	public function replaceYoutube($matches) {
 		$id = '';
 		$ret = '';
-		$url = trim(trim($matches[1], chr(0xC2).chr(0xA0)));
+		$options = array();
+		$data = preg_split("/[\|]/", $matches[1]);
+		
+		$url = trim(trim($data[0], chr(0xC2).chr(0xA0)));
 		if (!$url) return $ret;
 		
 		if (strpos($url, 'youtu.be') !== false) {
@@ -134,9 +137,15 @@ class plgContentMedia_embed extends JPlugin {
 			if (is_array($query) && count($query) && isset($query['v']) && $query['v']) $id = $query['v'];
 		}
 		
+		// options
+		for ($i = 1; $i < count($data); $i++) {
+			$pair = explode("=", $data[$i]);
+			$options[trim($pair[0])] = trim($pair[1]);
+		}
+		
 		if ($id) {
-			$width = $this->params->def('youtube_width', 560);
-			$height = $this->params->def('youtube_height', 315);
+			$width = (count($options) && isset($options['width'])) ? (int)$options['width'] : $this->params->def('youtube_width', 560);
+			$height = (count($options) && isset($options['height'])) ? (int)$options['height'] : $this->params->def('youtube_height', 315);
 			$ret = '<iframe width="' . $width . '" height="' . $height . '" src="http://www.youtube.com/embed/' . $id . '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 		}
 		
@@ -146,17 +155,24 @@ class plgContentMedia_embed extends JPlugin {
 	public function replaceVimeo($matches) {
 		$id = '';
 		$ret = '';
+		$options = array();
+		$data = preg_split("/[\|]/", $matches[1]);
 		
-		$url = $matches[1];
+		$url = $data[0];
 		if (strpos($url, 'w=') !== false) $url = mb_substr($url, 0, strpos($url, 'w=')-1);
 		$url = trim(trim($url, chr(0xC2).chr(0xA0)));
 		if (!$url) return $ret;
-		
 		$id = str_replace(array('http://', 'https://', 'vimeo.com', 'www', '/', '.'), '', $url);
 		
+		// options
+		for ($i = 1; $i < count($data); $i++) {
+			$pair = explode("=", $data[$i]);
+			$options[trim($pair[0])] = trim($pair[1]);
+		}
+		
 		if ($id) {
-			$width = $this->params->def('vimeo_width', 500);
-			$height = $this->params->def('vimeo_height', 281);
+			$width = (count($options) && isset($options['width'])) ? (int)$options['width'] : $this->params->def('vimeo_width', 500);
+			$height = (count($options) && isset($options['height'])) ? (int)$options['height'] : $this->params->def('vimeo_height', 281);
 			$ret = '<iframe src="http://player.vimeo.com/video/' . $id . '?title=1&amp;byline=1&amp;portrait=1" width="' . $width . '" height="' . $height . '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 		}
 		
